@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f5ef">
+  <meta name="description" content="A gentle little space to build consistency, little by little.">
+  <title>little by little.</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="wordmark" href="#" aria-label="little by little home">little by little<span>.</span></a>
+      <button class="icon-button" id="settingsBtn" aria-label="Settings" title="Settings">☼</button>
+    </header>
+
+    <main>
+      <section class="welcome">
+        <p class="eyebrow" id="todayLabel">YOUR LITTLE SPACE</p>
+        <h1 id="greeting">A little progress<br>today.</h1>
+        <p class="subline">You don't have to do everything. Just show up.</p>
+      </section>
+
+      <section class="progress-card">
+        <div class="progress-copy">
+          <div>
+            <p class="eyebrow">TODAY'S PROGRESS</p>
+            <p class="progress-number"><span id="doneCount">0</span><span class="muted"> / </span><span id="totalCount">0</span></p>
+          </div>
+          <p class="progress-note" id="progressNote">A fresh page.</p>
+        </div>
+        <div class="progress-track"><div id="progressFill"></div></div>
+      </section>
+
+      <section class="section-heading">
+        <div>
+          <p class="eyebrow">YOUR HABITS</p>
+          <h2>Show up for yourself.</h2>
+        </div>
+        <button class="text-button" id="addHabitBtn">＋ Add habit</button>
+      </section>
+      <section id="habitList" class="habit-list" aria-live="polite"></section>
+
+      <section class="bottom-grid">
+        <article class="small-card">
+          <p class="eyebrow">THIS WEEK</p>
+          <div class="week-dots" id="weekDots"></div>
+          <p class="small-caption" id="weekSummary">Your week, one day at a time.</p>
+        </article>
+        <article class="small-card">
+          <p class="eyebrow">A GENTLE REMINDER</p>
+          <p class="quote">“Progress is still progress, even when it's quiet.”</p>
+        </article>
+      </section>
+
+      <section class="section-heading journal-heading">
+        <div>
+          <p class="eyebrow">A MOMENT FOR YOU</p>
+          <h2>Daily note</h2>
+        </div>
+        <span class="save-status" id="saveStatus">Saves automatically</span>
+      </section>
+      <textarea id="journal" class="journal" rows="3" placeholder="How did today feel? Anything you want to remember…"></textarea>
+
+      <section class="section-heading history-heading">
+        <div>
+          <p class="eyebrow">LOOKING BACK</p>
+          <h2>Your consistency</h2>
+        </div>
+      </section>
+      <section class="history-card">
+        <div class="month-header">
+          <button class="icon-button" id="prevMonth" aria-label="Previous month">‹</button>
+          <strong id="monthTitle"></strong>
+          <button class="icon-button" id="nextMonth" aria-label="Next month">›</button>
+        </div>
+        <div class="calendar" id="calendar"></div>
+        <div class="legend"><span class="legend-dot completed"></span> You showed up <span class="legend-dot today-dot"></span> Today</div>
+      </section>
+    </main>
+
+    <footer>made for showing up, not being perfect <span>✳</span></footer>
+  </div>
+
+  <dialog id="habitDialog">
+    <form method="dialog" id="habitForm">
+      <div class="dialog-top">
+        <div><p class="eyebrow">MAKE IT YOURS</p><h2 id="dialogTitle">Add a habit</h2></div>
+        <button class="icon-button" value="cancel" aria-label="Close">×</button>
+      </div>
+      <label for="habitName">Habit name</label>
+      <input id="habitName" maxlength="40" placeholder="e.g. Study" required>
+      <label for="habitFrequency">How often?</label>
+      <select id="habitFrequency">
+        <option value="daily">Every day</option>
+        <option value="3">3 times a week</option>
+        <option value="2">2 times a week</option>
+        <option value="weekly">Once a week</option>
+      </select>
+      <p class="form-hint">You can change this whenever life changes.</p>
+      <div class="dialog-actions">
+        <button type="button" class="delete-button" id="deleteHabitBtn" hidden>Delete</button>
+        <span class="spacer"></span>
+        <button type="button" class="secondary-button" id="cancelHabitBtn">Cancel</button>
+        <button type="submit" class="primary-button">Save habit</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="settingsDialog">
+    <form method="dialog">
+      <div class="dialog-top">
+        <div><p class="eyebrow">YOUR SPACE</p><h2>Settings</h2></div>
+        <button class="icon-button" value="cancel" aria-label="Close">×</button>
+      </div>
+      <p class="settings-copy">Your habits and notes are saved in this browser on this device. This first version is private and doesn't need an account.</p>
+      <button type="button" class="secondary-button full" id="exportBtn">Export my data</button>
+      <button type="button" class="delete-button full" id="resetBtn">Reset all data</button>
+    </form>
+  </dialog>
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+      navigator.serviceWorker.register('./sw.js').catch(() => {});
+    }
+  </script>
+</body>
+</html>
